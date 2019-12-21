@@ -9,10 +9,6 @@ public class AsIntStream implements IntStream {
 
     private ArrayList<Integer> arr;
 
-//    private AsIntStream() {
-//        this.arr = new ArrayList<Integer>();
-//    }
-
     private AsIntStream(ArrayList<Integer> arrayList) {
         this.arr = arrayList;
     }
@@ -73,18 +69,9 @@ public class AsIntStream implements IntStream {
         return sum;
     }
 
-    public static void main(String[] args) {
-        int[] val = {1, 2, 3, -4, 5};
-        IntStream stream = AsIntStream.of(val);
-        System.out.println(stream.sum());
-        System.out.println(stream.sum().getClass());
-    }
-
     @Override
     public IntStream filter(IntPredicate predicate) {
         ArrayList<Integer> newArr = new ArrayList<>();
-//        AsIntStream newStream = new AsIntStream();   // create new stream
-
         for (int el : arr) {
             if (predicate.test(el)) {
                 newArr.add(el);
@@ -103,12 +90,6 @@ public class AsIntStream implements IntStream {
     @Override
     public IntStream map(IntUnaryOperator mapper) {
         ArrayList<Integer> newArr = new ArrayList<>();
-
-//        int len = arr.size();
-//        for(int i = 0; i < len; i++) {
-//            arrayNew.set(i, mapper.apply(arr.get(i)));
-//        }
-//        return new AsIntStream(arrayNew);
         AsIntStream newStr = new AsIntStream(newArr);
         arr.forEach(el -> newStr.arr.add(mapper.apply(el)));
         return newStr;
